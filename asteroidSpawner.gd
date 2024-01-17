@@ -19,7 +19,7 @@ func _process(delta):
 func spawnAsteroid():
 	var a = Asteroid.instantiate()
 	add_child(a)
-	print_debug("Spawned asteroid")
+	print_debug(Time.get_datetime_string_from_system(), " ",  "Spawned asteroid")
 
 
 func _on_asteroid_spawn_cooldown_timeout():
