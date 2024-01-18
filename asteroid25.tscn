@@ -1,22 +1,20 @@
-[gd_scene load_steps=5 format=3 uid="uid://cou61cgokjxnl"]
+[gd_scene load_steps=4 format=3 uid="uid://uws4fqd8w3r0"]
 
-[ext_resource type="Texture2D" uid="uid://dd3j5ddgeoq3r" path="res://asteroid.png" id="1_0l7h6"]
-[ext_resource type="Script" path="res://asteroid.gd" id="1_h8t2a"]
-[ext_resource type="PackedScene" uid="uid://bo388dgs0xvcn" path="res://asteroid50.tscn" id="2_8smja"]
+[ext_resource type="Script" path="res://asteroid25.gd" id="1_kdlsc"]
+[ext_resource type="Texture2D" uid="uid://ddedv4gtrjsy3" path="res://asteroid25.png" id="2_8vqpo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8401j"]
-size = Vector2(128, 112)
+size = Vector2(32, 32)
 
 [node name="AsteroidScene" type="Node2D"]
 
 [node name="Asteroid" type="Area2D" parent="."]
 collision_layer = 4
 collision_mask = 3
-script = ExtResource("1_h8t2a")
-smallAsteroid = ExtResource("2_8smja")
+script = ExtResource("1_kdlsc")
 
 [node name="Sprite2D" type="Sprite2D" parent="Asteroid"]
-texture = ExtResource("1_0l7h6")
+texture = ExtResource("2_8vqpo")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Asteroid"]
 shape = SubResource("RectangleShape2D_8401j")

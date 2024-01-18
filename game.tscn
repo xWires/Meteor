@@ -1,10 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://w3xuox2ftlwx"]
+[gd_scene load_steps=9 format=3 uid="uid://w3xuox2ftlwx"]
 
 [ext_resource type="Script" path="res://asteroidSpawner.gd" id="1_4r76q"]
 [ext_resource type="Script" path="res://player.gd" id="1_ba3e2"]
 [ext_resource type="Texture2D" uid="uid://c1i314m1hadl8" path="res://ship.png" id="1_yp4oc"]
 [ext_resource type="PackedScene" uid="uid://cou61cgokjxnl" path="res://asteroid.tscn" id="2_6rq1t"]
 [ext_resource type="PackedScene" uid="uid://br7eqep7t0a6s" path="res://bullet.tscn" id="2_u0j33"]
+[ext_resource type="FontFile" uid="uid://cndlac808bntd" path="res://vector_battle/Vectorb.ttf" id="6_j415o"]
+[ext_resource type="Script" path="res://ScoreLabel.gd" id="7_db4os"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_avxh7"]
 size = Vector2(32, 48)
@@ -17,7 +19,6 @@ Asteroid = ExtResource("2_6rq1t")
 position = Vector2(256, 112)
 collision_mask = 6
 script = ExtResource("1_ba3e2")
-rotation_speed = 3.0
 Bullet = ExtResource("2_u0j33")
 
 [node name="Sprite2D" type="Sprite2D" parent="Player"]
@@ -40,5 +41,24 @@ one_shot = true
 wait_time = 2.0
 one_shot = true
 
+[node name="UserInterface" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ScoreLabel" type="Label" parent="UserInterface"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 56.0
+offset_bottom = 85.0
+theme_override_colors/font_color = Color(0, 0.909804, 0, 1)
+theme_override_fonts/font = ExtResource("6_j415o")
+theme_override_font_sizes/font_size = 50
+text = "0"
+script = ExtResource("7_db4os")
+
+[connection signal="child_exiting_tree" from="." to="." method="_on_child_exiting_tree"]
 [connection signal="timeout" from="Player/WeaponCooldown" to="Player" method="_on_timer_timeout"]
 [connection signal="timeout" from="AsteroidSpawnCooldown" to="." method="_on_asteroid_spawn_cooldown_timeout"]

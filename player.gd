@@ -3,7 +3,7 @@ extends CharacterBody2D
 @export var acceleration = 5
 @export var deceleration = 0.5
 @export var maximumSpeed = 200
-@export var rotation_speed = 1.5
+@export var rotation_speed = 3
 
 var canFire = true
 
@@ -59,9 +59,6 @@ func _physics_process(delta):
 	position.y = wrapf(position.y, 0, screen_size.y)
 	
 	move_and_slide()
-	#print_debug(velocity)
-	#print_debug(transform.x)
-
 
 func _on_timer_timeout():
 	canFire = true

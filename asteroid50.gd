@@ -5,7 +5,7 @@ var random = RandomNumberGenerator.new()
 var screen_size
 var randomX
 var randomY
-var spawnLocation = Vector2.ZERO
+var spawnLocation:Vector2
 @export var smallAsteroid:PackedScene
 
 # Called when the node enters the scene tree for the first time.
@@ -14,8 +14,9 @@ func _ready():
 	random.randomize()
 	randomX = randf_range(-1, 1)
 	randomY = randf_range(-1, 1)
-	spawnLocation.x = randf_range(0, screen_size.x)
-	spawnLocation.y = randf_range(0, screen_size.y)
+	if spawnLocation == Vector2.ZERO:
+		spawnLocation.x = randf_range(0, screen_size.x)
+		spawnLocation.y = randf_range(0, screen_size.y)
 	self.position = spawnLocation
 	self.rotation = randi_range(-180, 180)
 

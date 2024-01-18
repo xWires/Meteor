@@ -5,8 +5,7 @@ var random = RandomNumberGenerator.new()
 var screen_size
 var randomX
 var randomY
-var spawnLocation = Vector2.ZERO
-@export var smallAsteroid:PackedScene
+var spawnLocation:Vector2
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -14,8 +13,9 @@ func _ready():
 	random.randomize()
 	randomX = randf_range(-1, 1)
 	randomY = randf_range(-1, 1)
-	spawnLocation.x = randf_range(0, screen_size.x)
-	spawnLocation.y = randf_range(0, screen_size.y)
+	if spawnLocation == Vector2.ZERO:
+		spawnLocation.x = randf_range(0, screen_size.x)
+		spawnLocation.y = randf_range(0, screen_size.y)
 	self.position = spawnLocation
 	self.rotation = randi_range(-180, 180)
 
@@ -36,12 +36,6 @@ func _on_body_entered(body):
 func _on_area_entered(area):
 	var score = get_node("../../UserInterface/ScoreLabel")
 	score.score += 1
-	var spawner = get_node("../..")
-	for i in 2:
-		var a = smallAsteroid.instantiate()
-		a.get_node("Asteroid").spawnLocation.x = self.position.x
-		a.get_node("Asteroid").spawnLocation.y = self.position.y
-		get_node("../..").add_child.call_deferred(a)
 	queue_free()
 	area.queue_free()
 
