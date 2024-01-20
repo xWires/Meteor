@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://w3xuox2ftlwx"]
+[gd_scene load_steps=15 format=3 uid="uid://w3xuox2ftlwx"]
 
 [ext_resource type="Script" path="res://asteroidSpawner.gd" id="1_4r76q"]
 [ext_resource type="Script" path="res://player.gd" id="1_ba3e2"]
@@ -7,6 +7,12 @@
 [ext_resource type="PackedScene" uid="uid://br7eqep7t0a6s" path="res://bullet.tscn" id="2_u0j33"]
 [ext_resource type="FontFile" uid="uid://cndlac808bntd" path="res://vector_battle/Vectorb.ttf" id="6_j415o"]
 [ext_resource type="Script" path="res://ScoreLabel.gd" id="7_db4os"]
+[ext_resource type="Texture2D" uid="uid://b78fcywfgtgll" path="res://continue_focused.png" id="8_0vq87"]
+[ext_resource type="Script" path="res://PauseMenu.gd" id="8_uxe00"]
+[ext_resource type="Texture2D" uid="uid://cpddte1x7d0yu" path="res://paused.png" id="9_1laju"]
+[ext_resource type="Texture2D" uid="uid://capvc3tfdc0gb" path="res://continue.png" id="10_mw0v3"]
+[ext_resource type="Texture2D" uid="uid://bntjughorfyl0" path="res://quit_focused.png" id="10_u0gkk"]
+[ext_resource type="Texture2D" uid="uid://bychx4xeeqpni" path="res://quit.png" id="13_510wa"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_avxh7"]
 size = Vector2(32, 42)
@@ -60,6 +66,43 @@ theme_override_font_sizes/font_size = 50
 text = "0"
 script = ExtResource("7_db4os")
 
+[node name="PauseMenu" type="Control" parent="."]
+process_mode = 2
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("8_uxe00")
+
+[node name="Continue" type="TextureButton" parent="PauseMenu"]
+layout_mode = 0
+offset_left = 350.0
+offset_top = 192.0
+offset_right = 802.0
+offset_bottom = 253.0
+texture_normal = ExtResource("10_mw0v3")
+texture_focused = ExtResource("8_0vq87")
+
+[node name="Paused" type="TextureRect" parent="PauseMenu"]
+layout_mode = 0
+offset_left = 314.0
+offset_top = 61.0
+offset_right = 838.0
+offset_bottom = 165.0
+texture = ExtResource("9_1laju")
+expand_mode = 1
+
+[node name="Quit" type="TextureButton" parent="PauseMenu"]
+layout_mode = 0
+offset_left = 466.0
+offset_top = 400.0
+offset_right = 686.0
+offset_bottom = 461.0
+texture_normal = ExtResource("13_510wa")
+texture_focused = ExtResource("10_u0gkk")
+
 [connection signal="child_exiting_tree" from="." to="." method="_on_child_exiting_tree"]
 [connection signal="timeout" from="Player/WeaponCooldown" to="Player" method="_on_timer_timeout"]
 [connection signal="timeout" from="AsteroidSpawnCooldown" to="." method="_on_asteroid_spawn_cooldown_timeout"]
+[connection signal="pressed" from="PauseMenu/Continue" to="PauseMenu" method="_on_continue_pressed"]
+[connection signal="pressed" from="PauseMenu/Quit" to="PauseMenu" method="_on_quit_pressed"]

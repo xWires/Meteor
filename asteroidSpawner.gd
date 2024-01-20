@@ -28,17 +28,11 @@ func spawnAsteroid(size, location=null):
 		a.get_node("Asteroid").setSpawnLocation(location)
 	print_debug(Time.get_datetime_string_from_system(), " ",  "Spawned asteroid")
 
-
 func _on_asteroid_spawn_cooldown_timeout():
 	shouldSpawn = true
-
-func _input(event):
-	if event.is_action_pressed("quit"):
-		get_tree().quit()
-
-func _on_child_exiting_tree(node):
-	print_debug(node)
-	if node.name == "AsteroidScene":
-		spawnAsteroid(node.scale)
-		print_debug("split asteroid")
 		
+func _input(event):
+	if Input.is_action_just_pressed("pause"):
+		get_tree().paused = true
+		$PauseMenu.show()
+		$PauseMenu/Continue.grab_focus()
