@@ -14,9 +14,7 @@ func _ready():
 	random.randomize()
 	randomX = randf_range(-1, 1)
 	randomY = randf_range(-1, 1)
-	spawnLocation.x = randf_range(0, screen_size.x)
-	spawnLocation.y = randf_range(0, screen_size.y)
-	self.position = spawnLocation
+	setSpawnLocation()
 	self.rotation = randi_range(-180, 180)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -45,5 +43,11 @@ func _on_area_entered(area):
 	queue_free()
 	area.queue_free()
 
-func setSpawnLocation(location):
-	spawnLocation = location
+func setSpawnLocation():
+	spawnLocation.x = randf_range(0, screen_size.x)
+	spawnLocation.y = randf_range(0, screen_size.y)
+	print_debug(spawnLocation.distance_to(get_node("../../Player").position))
+	if spawnLocation.distance_to(get_node("../../Player").position) < 100:
+		setSpawnLocation()
+	else:
+		self.position = spawnLocation
