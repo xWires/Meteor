@@ -9,7 +9,7 @@
 [ext_resource type="Script" path="res://ScoreLabel.gd" id="7_db4os"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_avxh7"]
-size = Vector2(32, 48)
+size = Vector2(32, 42)
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_4r76q")
@@ -27,11 +27,12 @@ scale = Vector2(0.3, 0.3)
 texture = ExtResource("1_yp4oc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+position = Vector2(1, 7.62939e-06)
 rotation = 1.5708
 shape = SubResource("RectangleShape2D_avxh7")
 
 [node name="Weapon" type="Marker2D" parent="Player"]
-position = Vector2(24, 0)
+position = Vector2(22, 0)
 
 [node name="WeaponCooldown" type="Timer" parent="Player"]
 wait_time = 0.5

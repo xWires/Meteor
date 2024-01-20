@@ -4,8 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://uws4fqd8w3r0" path="res://asteroid25.tscn" id="2_nswh4"]
 [ext_resource type="Texture2D" uid="uid://dyr61ov6hnfhq" path="res://asteroid50.png" id="2_ttnx1"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_8401j"]
-size = Vector2(64, 64)
+[sub_resource type="CircleShape2D" id="CircleShape2D_7ixjm"]
+radius = 24.0
 
 [node name="AsteroidScene" type="Node2D"]
 
@@ -19,7 +19,7 @@ smallAsteroid = ExtResource("2_nswh4")
 texture = ExtResource("2_ttnx1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Asteroid"]
-shape = SubResource("RectangleShape2D_8401j")
+shape = SubResource("CircleShape2D_7ixjm")
 
 [connection signal="area_entered" from="Asteroid" to="Asteroid" method="_on_area_entered"]
 [connection signal="body_entered" from="Asteroid" to="Asteroid" method="_on_body_entered"]
