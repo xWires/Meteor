@@ -43,11 +43,14 @@ func _on_area_entered(area):
 	queue_free()
 	area.queue_free()
 
-func setSpawnLocation():
-	spawnLocation.x = randf_range(0, screen_size.x)
-	spawnLocation.y = randf_range(0, screen_size.y)
-	print_debug(spawnLocation.distance_to(get_node("../../Player").position))
-	if spawnLocation.distance_to(get_node("../../Player").position) < 100:
-		setSpawnLocation()
+func setSpawnLocation(location=null):
+	if location != null:
+		position = location
 	else:
-		self.position = spawnLocation
+		spawnLocation.x = randf_range(0, screen_size.x)
+		spawnLocation.y = randf_range(0, screen_size.y)
+		print_debug(spawnLocation.distance_to(get_node("../../Player").position))
+		if spawnLocation.distance_to(get_node("../../Player").position) < 150:
+			setSpawnLocation()
+		else:
+			self.position = spawnLocation
