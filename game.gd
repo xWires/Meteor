@@ -4,10 +4,14 @@ extends Node2D
 
 var shouldSpawn = true
 var screen_size
+var config = ConfigFile.new()
+var err = config.load("user://options.cfg")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	screen_size = get_viewport_rect().size
+	if config.get_value("options", "volume") != null:
+		$PauseMenu/VolumeSlider.value = config.get_value("options", "volume")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -15,6 +19,8 @@ func _process(delta):
 		spawnAsteroid(1)
 		$AsteroidSpawnCooldown.start()
 		shouldSpawn = false
+	setVolumeOption($PauseMenu/VolumeSlider.value)
+	saveConfig()
 
 func spawnAsteroid(size, location=null):
 	var a = Asteroid.instantiate()
@@ -36,3 +42,18 @@ func _input(event):
 		get_tree().paused = true
 		$PauseMenu.show()
 		$PauseMenu/Continue.grab_focus()
+
+func saveConfig():
+	config.save("user://options.cfg")
+	
+func setVolumeOption(volume:float):
+	config.set_value("options", "volume", volume)
+
+func _notification(what):
+	if what == NOTIFICATION_WM_CLOSE_REQUEST:
+		onExit()
+		get_tree().quit()
+
+func onExit():
+	setVolumeOption($PauseMenu/VolumeSlider.value)
+	saveConfig()

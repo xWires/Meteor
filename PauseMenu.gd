@@ -19,4 +19,5 @@ func _on_continue_pressed():
 	get_tree().paused = false
 
 func _on_quit_pressed():
+	get_node("..").onExit()
 	get_tree().quit()

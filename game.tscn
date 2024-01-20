@@ -1,10 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://w3xuox2ftlwx"]
+[gd_scene load_steps=17 format=3 uid="uid://w3xuox2ftlwx"]
 
-[ext_resource type="Script" path="res://asteroidSpawner.gd" id="1_4r76q"]
+[ext_resource type="Script" path="res://game.gd" id="1_4r76q"]
 [ext_resource type="Script" path="res://player.gd" id="1_ba3e2"]
 [ext_resource type="Texture2D" uid="uid://c1i314m1hadl8" path="res://ship.png" id="1_yp4oc"]
 [ext_resource type="PackedScene" uid="uid://cou61cgokjxnl" path="res://asteroid.tscn" id="2_6rq1t"]
 [ext_resource type="PackedScene" uid="uid://br7eqep7t0a6s" path="res://bullet.tscn" id="2_u0j33"]
+[ext_resource type="AudioStream" uid="uid://cufvgdojwf43p" path="res://shoot.wav" id="6_8pmbe"]
 [ext_resource type="FontFile" uid="uid://cndlac808bntd" path="res://vector_battle/Vectorb.ttf" id="6_j415o"]
 [ext_resource type="Script" path="res://ScoreLabel.gd" id="7_db4os"]
 [ext_resource type="Texture2D" uid="uid://b78fcywfgtgll" path="res://continue_focused.png" id="8_0vq87"]
@@ -13,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://capvc3tfdc0gb" path="res://continue.png" id="10_mw0v3"]
 [ext_resource type="Texture2D" uid="uid://bntjughorfyl0" path="res://quit_focused.png" id="10_u0gkk"]
 [ext_resource type="Texture2D" uid="uid://bychx4xeeqpni" path="res://quit.png" id="13_510wa"]
+[ext_resource type="Texture2D" uid="uid://c8nct5ra0ybj2" path="res://volume.png" id="14_vnlqt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_avxh7"]
 size = Vector2(32, 42)
@@ -39,6 +41,10 @@ shape = SubResource("RectangleShape2D_avxh7")
 
 [node name="Weapon" type="Marker2D" parent="Player"]
 position = Vector2(22, 0)
+
+[node name="ShootSoundEffect" type="AudioStreamPlayer" parent="Player/Weapon"]
+stream = ExtResource("6_8pmbe")
+volume_db = 24.0
 
 [node name="WeaponCooldown" type="Timer" parent="Player"]
 wait_time = 0.5
@@ -101,7 +107,26 @@ offset_bottom = 461.0
 texture_normal = ExtResource("13_510wa")
 texture_focused = ExtResource("10_u0gkk")
 
+[node name="VolumeSlider" type="VSlider" parent="PauseMenu"]
+layout_mode = 0
+offset_left = 952.0
+offset_top = 288.0
+offset_right = 968.0
+offset_bottom = 456.0
+max_value = 16.0
+value = 16.0
+
+[node name="TextureRect" type="TextureRect" parent="PauseMenu/VolumeSlider"]
+layout_mode = 0
+offset_left = -72.0
+offset_top = -40.0
+offset_right = 88.0
+offset_bottom = -11.0
+texture = ExtResource("14_vnlqt")
+expand_mode = 1
+
 [connection signal="child_exiting_tree" from="." to="." method="_on_child_exiting_tree"]
+[connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]
 [connection signal="timeout" from="Player/WeaponCooldown" to="Player" method="_on_timer_timeout"]
 [connection signal="timeout" from="AsteroidSpawnCooldown" to="." method="_on_asteroid_spawn_cooldown_timeout"]
 [connection signal="pressed" from="PauseMenu/Continue" to="PauseMenu" method="_on_continue_pressed"]
