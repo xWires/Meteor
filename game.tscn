@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://w3xuox2ftlwx"]
+[gd_scene load_steps=22 format=3 uid="uid://w3xuox2ftlwx"]
 
 [ext_resource type="Script" path="res://game.gd" id="1_4r76q"]
 [ext_resource type="Script" path="res://player.gd" id="1_ba3e2"]
@@ -15,6 +15,11 @@
 [ext_resource type="Texture2D" uid="uid://bntjughorfyl0" path="res://quit_focused.png" id="10_u0gkk"]
 [ext_resource type="Texture2D" uid="uid://bychx4xeeqpni" path="res://quit.png" id="13_510wa"]
 [ext_resource type="Texture2D" uid="uid://c8nct5ra0ybj2" path="res://volume.png" id="14_vnlqt"]
+[ext_resource type="Script" path="res://GameOverMenu.gd" id="16_sm7up"]
+[ext_resource type="Texture2D" uid="uid://dri0tdnjyvecn" path="res://game_over.png" id="16_tpded"]
+[ext_resource type="Texture2D" uid="uid://bpxqobmqtroqr" path="res://restart.png" id="18_bdrod"]
+[ext_resource type="Texture2D" uid="uid://j0u7kuwv5rsg" path="res://restart_focused.png" id="19_13d1b"]
+[ext_resource type="Texture2D" uid="uid://bplnb4ynyulsn" path="res://high_score.png" id="20_dyulu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_avxh7"]
 size = Vector2(32, 42)
@@ -74,6 +79,7 @@ script = ExtResource("7_db4os")
 
 [node name="PauseMenu" type="Control" parent="."]
 process_mode = 2
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -125,9 +131,69 @@ offset_bottom = -11.0
 texture = ExtResource("14_vnlqt")
 expand_mode = 1
 
+[node name="GameOverMenu" type="Control" parent="."]
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("16_sm7up")
+
+[node name="GameOver" type="TextureRect" parent="GameOverMenu"]
+layout_mode = 0
+offset_left = 187.0
+offset_top = 128.0
+offset_right = 965.0
+offset_bottom = 231.0
+texture = ExtResource("16_tpded")
+expand_mode = 1
+
+[node name="Restart" type="TextureButton" parent="GameOverMenu"]
+layout_mode = 0
+offset_left = 379.0
+offset_top = 362.0
+offset_right = 773.0
+offset_bottom = 424.0
+texture_normal = ExtResource("18_bdrod")
+texture_focused = ExtResource("19_13d1b")
+
+[node name="Quit" type="TextureButton" parent="GameOverMenu"]
+layout_mode = 0
+offset_left = 466.0
+offset_top = 515.0
+offset_right = 686.0
+offset_bottom = 576.0
+texture_normal = ExtResource("13_510wa")
+texture_focused = ExtResource("10_u0gkk")
+
+[node name="HighScoreText" type="TextureRect" parent="GameOverMenu"]
+layout_mode = 0
+offset_left = 893.0
+offset_top = 287.0
+offset_right = 1123.0
+offset_bottom = 312.0
+texture = ExtResource("20_dyulu")
+expand_mode = 1
+
+[node name="HighScore" type="RichTextLabel" parent="GameOverMenu/HighScoreText"]
+layout_mode = 0
+offset_top = 34.0
+offset_right = 202.0
+offset_bottom = 74.0
+theme_override_colors/default_color = Color(0, 0.909804, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0.909804, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_fonts/normal_font = ExtResource("6_j415o")
+theme_override_font_sizes/normal_font_size = 31
+bbcode_enabled = true
+text = "[center]1234[/center]"
+
 [connection signal="child_exiting_tree" from="." to="." method="_on_child_exiting_tree"]
 [connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]
 [connection signal="timeout" from="Player/WeaponCooldown" to="Player" method="_on_timer_timeout"]
 [connection signal="timeout" from="AsteroidSpawnCooldown" to="." method="_on_asteroid_spawn_cooldown_timeout"]
 [connection signal="pressed" from="PauseMenu/Continue" to="PauseMenu" method="_on_continue_pressed"]
 [connection signal="pressed" from="PauseMenu/Quit" to="PauseMenu" method="_on_quit_pressed"]
+[connection signal="pressed" from="GameOverMenu/Restart" to="GameOverMenu" method="_on_restart_pressed"]
+[connection signal="pressed" from="GameOverMenu/Quit" to="GameOverMenu" method="_on_quit_pressed"]

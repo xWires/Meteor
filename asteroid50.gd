@@ -32,7 +32,14 @@ func _physics_process(delta):
 
 @warning_ignore("unused_parameter")
 func _on_body_entered(body):
-	get_tree().reload_current_scene()
+	var score = get_node("../../UserInterface/ScoreLabel")
+	get_node("../..").gameInProgress = false
+	get_node("../..").spawnAllowed = false
+	get_node("../../Player").queue_free.call_deferred()
+	get_node("../../GameOverMenu").show()
+	get_node("../../GameOverMenu/Restart").grab_focus()
+	get_node("../..").saveHighScore(score.score)
+	get_node("../../GameOverMenu/HighScoreText/HighScore").text = "[center]" + str(get_node("../..").getHighScore()) + "[/center]" 
 
 func _on_area_entered(area):
 	var score = get_node("../../UserInterface/ScoreLabel")

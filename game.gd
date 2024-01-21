@@ -2,10 +2,13 @@ extends Node2D
 
 @export var Asteroid:PackedScene
 
+var spawnAllowed = true
 var shouldSpawn = true
 var screen_size
 var config = ConfigFile.new()
 var err = config.load("user://options.cfg")
+var gameInProgress = true
+var highScore
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -15,7 +18,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if shouldSpawn:
+	if shouldSpawn and spawnAllowed:
 		spawnAsteroid(1)
 		$AsteroidSpawnCooldown.start()
 		shouldSpawn = false
@@ -38,7 +41,7 @@ func _on_asteroid_spawn_cooldown_timeout():
 	shouldSpawn = true
 		
 func _input(event):
-	if Input.is_action_just_pressed("pause"):
+	if Input.is_action_just_pressed("pause") and gameInProgress:
 		get_tree().paused = true
 		$PauseMenu.show()
 		$PauseMenu/Continue.grab_focus()
@@ -49,6 +52,10 @@ func saveConfig():
 func setVolumeOption(volume:float):
 	config.set_value("options", "volume", volume)
 
+func saveHighScore(score):
+	if config.get_value("scores", "high_score", 0) < score:
+		config.set_value("scores", "high_score", score)
+
 func _notification(what):
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
 		onExit()
@@ -57,3 +64,6 @@ func _notification(what):
 func onExit():
 	setVolumeOption($PauseMenu/VolumeSlider.value)
 	saveConfig()
+
+func getHighScore():
+	return config.get_value("scores", "high_score", 0)
