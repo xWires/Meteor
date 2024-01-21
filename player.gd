@@ -22,6 +22,9 @@ func _process(delta):
 
 func fireWeapon():
 	if canFire:
+		if get_node("../PauseMenu/VolumeSlider").value != 0:
+			$Weapon/ShootSoundEffect.volume_db = get_node("../PauseMenu/VolumeSlider").value
+			$Weapon/ShootSoundEffect.play()
 		var b = Bullet.instantiate()
 		owner.add_child(b)
 		b.transform = $Weapon.global_transform

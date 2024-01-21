@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://asteroid25.gd" id="1_kdlsc"]
 [ext_resource type="Texture2D" uid="uid://ddedv4gtrjsy3" path="res://asteroid25.png" id="2_8vqpo"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_8401j"]
-size = Vector2(32, 32)
+[sub_resource type="CircleShape2D" id="CircleShape2D_a764u"]
+radius = 16.0
 
 [node name="AsteroidScene" type="Node2D"]
 
@@ -17,7 +17,7 @@ script = ExtResource("1_kdlsc")
 texture = ExtResource("2_8vqpo")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Asteroid"]
-shape = SubResource("RectangleShape2D_8401j")
+shape = SubResource("CircleShape2D_a764u")
 
 [connection signal="area_entered" from="Asteroid" to="Asteroid" method="_on_area_entered"]
 [connection signal="body_entered" from="Asteroid" to="Asteroid" method="_on_body_entered"]
