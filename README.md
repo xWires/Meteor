@@ -22,4 +22,5 @@ Controls (Controller)
 The latest version of Meteor is available [here](https://github.com/TangledWiresYT/Meteor/releases/latest), scroll down to the bottom of that page and choose the version you need, Windows or Linux.
 
 Meteor is licensed under the GPLv3 license
+
 The "Vector Battle" font is licensed under a seperate license which can be found in the "vector_battle" folder.
