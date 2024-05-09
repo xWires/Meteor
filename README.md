@@ -27,7 +27,7 @@ To change the way the game works, you can use environment variables. Here is a l
 - METEOR_P_ROTSPEED: Used to set how fast the player rotates, the default is 3
 - METEOR_P_FIRECOOLDOWN: Used to set the cooldown for firing, default is 0.5
 
-To use these on Windows, right click in the folder Meteor is in, and click "Open in Terminal". The following example shows how to change the firing cooldown, but you can change it to something else if you would like:
+To use these on Windows, right click in the folder Meteor is in, and click "Open in Terminal". The following example shows what to type to change the firing cooldown, but you can change it to something else if you would like:
 ```powershell
 $env:METEOR_P_FIRECOOLDOWN = 0.1
 ```
