@@ -19,6 +19,36 @@ Controls (Controller)
 - X for reversing
 - Options to pause
 
-The latest version of Meteor is available [here](https://github.com/TangledWiresYT/Meteor/releases/latest), scroll down to the bottom of that page and choose the version you need, Windows or Linux.
+To change the way the game works, you can use environment variables. Here is a list of environment variables you can set:
+
+- METEOR_P_ACCELERATION: Used to set how fast the player accelerates, the default is 5
+- METEOR_P_DECELERATION: Used to set how fast the player decelerates, the default is 0.5
+- METEOR_P_MAXSPEED: Used to set the maximum speed of the player, the default is 200
+- METEOR_P_ROTSPEED: Used to set how fast the player rotates, the default is 3
+- METEOR_P_FIRECOOLDOWN: Used to set the cooldown for firing, default is 0.5
+
+To use these on Windows, right click in the folder Meteor is in, and click "Open in Terminal". The following example shows how to change the firing cooldown, but you can change it to something else if you would like:
+```powershell
+$env:METEOR_P_FIRECOOLDOWN = 0.1
+```
+You can do this multiple times to change multiple different variables.
+Then run Meteor like this:
+```powershell
+.\Meteor-Windows-v1.2.exe # Or if your version of Meteor is named something else, change it to that, make sure to include the '.\' though
+```
+On Linux you can set variables like this:
+```bash
+export METEOR_P_FIRECOOLDOWN=0.1
+```
+Again, you can do this multiple times.
+Then run Meteor like this:
+```bash
+./Meteor-Linux-v1.2.x86_64
+```
+These changes are (intentionally) not permanent so if you close the terminal then you will have to do it again next time.
+
+
+The latest version of Meteor is available [here](https://github.com/xWires/Meteor/releases/latest), scroll down to the bottom of that page and choose the version you need, Windows or Linux.
 
 Meteor is licensed under the GPLv3 license, and the "Vector Battle" font is licensed under a seperate license which can be found in the "vector_battle" folder.
+
