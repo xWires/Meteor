@@ -47,6 +47,8 @@ Then run Meteor like this:
 ```
 These changes are (intentionally) not permanent so if you close the terminal then you will have to do it again next time.
 
+Your settings and high score are stored in "C:/Users/[name]/AppData/Roaming/Godot/app_userdata/Meteor/options.cfg" on Windows, and on Linux it is stored at "/home/[name]/.local/share/godot/app_userdata/Meteor/options.cfg".
+
 
 The latest version of Meteor is available [here](https://github.com/xWires/Meteor/releases/latest), scroll down to the bottom of that page and choose the version you need, Windows or Linux.
 
