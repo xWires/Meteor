@@ -56,7 +56,7 @@ func setSpawnLocation(location=null):
 	else:
 		spawnLocation.x = randf_range(0, screen_size.x)
 		spawnLocation.y = randf_range(0, screen_size.y)
-		print_debug(spawnLocation.distance_to(get_node("../../Player").position))
+		#print_debug(spawnLocation.distance_to(get_node("../../Player").position))
 		if spawnLocation.distance_to(get_node("../../Player").position) < 150:
 			setSpawnLocation()
 		else:

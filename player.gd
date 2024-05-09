@@ -3,13 +3,13 @@ extends CharacterBody2D
 @export var acceleration = 5
 @export var deceleration = 0.5
 @export var maximumSpeed = 200
-@export var rotation_speed = 3
+@export var rotationSpeed = 3
 
 var canFire = true
 
 @export var Bullet:PackedScene
 
-var rotation_direction = 0
+var rotationDirection = 0
 var screen_size
 var children
 
@@ -32,7 +32,7 @@ func fireWeapon():
 		canFire = false
 
 func get_input():
-	rotation_direction = Input.get_axis("left", "right")
+	rotationDirection = Input.get_axis("left", "right")
 	velocity += transform.x * Input.get_axis("down", "up") * acceleration
 	#if velocity < maximumSpeed:
 		#velocity += transform.x * Input.get_axis("down", "up") * acceleration
@@ -47,7 +47,7 @@ func _physics_process(delta):
 	if velocity.y < -maximumSpeed:
 		velocity.y = -maximumSpeed
 	get_input()
-	rotation += rotation_direction * rotation_speed * delta
+	rotation += rotationDirection * rotationSpeed * delta
 	#move_and_slide()
 	if velocity.x > 0:	
 		velocity.x -= deceleration
