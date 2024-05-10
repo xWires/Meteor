@@ -107,6 +107,7 @@ func getHighScore():
 
 func _on_colour_slider_value_changed(value):
 	material.set_shader_parameter("Shift_Hue", value)
+	setHueOption(value)
 
 func setHueOption(hue:float):
 	config.set_value("options", "hue", hue)
