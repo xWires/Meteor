@@ -138,6 +138,7 @@ max_value = 16.0
 value = 16.0
 
 [node name="HueSlider" type="VSlider" parent="PauseMenu"]
+layout_mode = 0
 offset_left = 184.0
 offset_top = 288.0
 offset_right = 200.0
