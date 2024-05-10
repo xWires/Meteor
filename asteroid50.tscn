@@ -8,14 +8,17 @@
 radius = 24.0
 
 [node name="AsteroidScene" type="Node2D"]
+use_parent_material = true
 
 [node name="Asteroid" type="Area2D" parent="."]
+use_parent_material = true
 collision_layer = 4
 collision_mask = 3
 script = ExtResource("1_dh04m")
 smallAsteroid = ExtResource("2_nswh4")
 
 [node name="Sprite2D" type="Sprite2D" parent="Asteroid"]
+use_parent_material = true
 texture = ExtResource("2_ttnx1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Asteroid"]

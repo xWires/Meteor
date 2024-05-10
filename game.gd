@@ -43,6 +43,9 @@ func _ready():
 		
 	if config.get_value("options", "volume") != null:
 		$PauseMenu/VolumeSlider.value = config.get_value("options", "volume")
+	if config.get_value("options", "hue") != null:
+		$PauseMenu/HueSlider.value = config.get_value("options", "hue")
+
 	$Player.acceleration = pAccel
 	$Player.deceleration = pDecel
 	$Player.maximumSpeed = pMaxSpeed
@@ -96,7 +99,14 @@ func _notification(what):
 
 func onExit():
 	setVolumeOption($PauseMenu/VolumeSlider.value)
+	setHueOption($PauseMenu/HueSlider.value)
 	saveConfig()
 
 func getHighScore():
 	return config.get_value("scores", "high_score", 0)
+
+func _on_colour_slider_value_changed(value):
+	material.set_shader_parameter("Shift_Hue", value)
+
+func setHueOption(hue:float):
+	config.set_value("options", "hue", hue)

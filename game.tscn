@@ -1,7 +1,8 @@
-[gd_scene load_steps=22 format=3 uid="uid://w3xuox2ftlwx"]
+[gd_scene load_steps=25 format=3 uid="uid://w3xuox2ftlwx"]
 
 [ext_resource type="Script" path="res://game.gd" id="1_4r76q"]
 [ext_resource type="Script" path="res://player.gd" id="1_ba3e2"]
+[ext_resource type="Shader" path="res://shift_hsv.gdshader" id="1_sykpf"]
 [ext_resource type="Texture2D" uid="uid://c1i314m1hadl8" path="res://ship.png" id="1_yp4oc"]
 [ext_resource type="PackedScene" uid="uid://cou61cgokjxnl" path="res://asteroid.tscn" id="2_6rq1t"]
 [ext_resource type="PackedScene" uid="uid://br7eqep7t0a6s" path="res://bullet.tscn" id="2_u0j33"]
@@ -17,24 +18,32 @@
 [ext_resource type="Texture2D" uid="uid://c8nct5ra0ybj2" path="res://volume.png" id="14_vnlqt"]
 [ext_resource type="Script" path="res://GameOverMenu.gd" id="16_sm7up"]
 [ext_resource type="Texture2D" uid="uid://dri0tdnjyvecn" path="res://game_over.png" id="16_tpded"]
+[ext_resource type="Texture2D" uid="uid://c08o0iq6otphp" path="res://colour.png" id="17_nw0qd"]
 [ext_resource type="Texture2D" uid="uid://bpxqobmqtroqr" path="res://restart.png" id="18_bdrod"]
 [ext_resource type="Texture2D" uid="uid://j0u7kuwv5rsg" path="res://restart_focused.png" id="19_13d1b"]
 [ext_resource type="Texture2D" uid="uid://bplnb4ynyulsn" path="res://high_score.png" id="20_dyulu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ucia6"]
+shader = ExtResource("1_sykpf")
+shader_parameter/Shift_Hue = null
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_avxh7"]
 size = Vector2(32, 42)
 
 [node name="Game" type="Node2D"]
+material = SubResource("ShaderMaterial_ucia6")
 script = ExtResource("1_4r76q")
 Asteroid = ExtResource("2_6rq1t")
 
 [node name="Player" type="CharacterBody2D" parent="."]
+use_parent_material = true
 position = Vector2(256, 112)
 collision_mask = 6
 script = ExtResource("1_ba3e2")
 Bullet = ExtResource("2_u0j33")
 
 [node name="Sprite2D" type="Sprite2D" parent="Player"]
+use_parent_material = true
 rotation = 1.5708
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("1_yp4oc")
@@ -60,12 +69,14 @@ wait_time = 2.0
 one_shot = true
 
 [node name="UserInterface" type="Control" parent="."]
+use_parent_material = true
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="ScoreLabel" type="Label" parent="UserInterface"]
+use_parent_material = true
 layout_mode = 0
 offset_left = 16.0
 offset_top = 16.0
@@ -80,6 +91,7 @@ script = ExtResource("7_db4os")
 [node name="PauseMenu" type="Control" parent="."]
 process_mode = 2
 visible = false
+use_parent_material = true
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -87,6 +99,7 @@ offset_bottom = 40.0
 script = ExtResource("8_uxe00")
 
 [node name="Continue" type="TextureButton" parent="PauseMenu"]
+use_parent_material = true
 layout_mode = 0
 offset_left = 350.0
 offset_top = 192.0
@@ -96,6 +109,7 @@ texture_normal = ExtResource("10_mw0v3")
 texture_focused = ExtResource("8_0vq87")
 
 [node name="Paused" type="TextureRect" parent="PauseMenu"]
+use_parent_material = true
 layout_mode = 0
 offset_left = 314.0
 offset_top = 61.0
@@ -105,6 +119,7 @@ texture = ExtResource("9_1laju")
 expand_mode = 1
 
 [node name="Quit" type="TextureButton" parent="PauseMenu"]
+use_parent_material = true
 layout_mode = 0
 offset_left = 466.0
 offset_top = 400.0
@@ -122,18 +137,40 @@ offset_bottom = 456.0
 max_value = 16.0
 value = 16.0
 
-[node name="TextureRect" type="TextureRect" parent="PauseMenu/VolumeSlider"]
+[node name="HueSlider" type="VSlider" parent="PauseMenu"]
+offset_left = 184.0
+offset_top = 288.0
+offset_right = 200.0
+offset_bottom = 456.0
+min_value = -1.0
+max_value = 1.0
+step = 0.1
+value = 1.0
+
+[node name="VolumeSliderLabel" type="TextureRect" parent="PauseMenu"]
+use_parent_material = true
 layout_mode = 0
-offset_left = -72.0
-offset_top = -40.0
-offset_right = 88.0
-offset_bottom = -11.0
+offset_left = 880.0
+offset_top = 248.0
+offset_right = 1040.0
+offset_bottom = 277.0
 texture = ExtResource("14_vnlqt")
+expand_mode = 1
+
+[node name="HueSliderLabel" type="TextureRect" parent="PauseMenu"]
+use_parent_material = true
+layout_mode = 0
+offset_left = 112.0
+offset_top = 248.0
+offset_right = 272.0
+offset_bottom = 277.0
+texture = ExtResource("17_nw0qd")
 expand_mode = 1
 
 [node name="GameOverMenu" type="Control" parent="."]
 process_mode = 3
 visible = false
+use_parent_material = true
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -141,6 +178,7 @@ offset_bottom = 40.0
 script = ExtResource("16_sm7up")
 
 [node name="GameOver" type="TextureRect" parent="GameOverMenu"]
+use_parent_material = true
 layout_mode = 0
 offset_left = 187.0
 offset_top = 128.0
@@ -150,6 +188,7 @@ texture = ExtResource("16_tpded")
 expand_mode = 1
 
 [node name="Restart" type="TextureButton" parent="GameOverMenu"]
+use_parent_material = true
 layout_mode = 0
 offset_left = 379.0
 offset_top = 362.0
@@ -159,6 +198,7 @@ texture_normal = ExtResource("18_bdrod")
 texture_focused = ExtResource("19_13d1b")
 
 [node name="Quit" type="TextureButton" parent="GameOverMenu"]
+use_parent_material = true
 layout_mode = 0
 offset_left = 466.0
 offset_top = 515.0
@@ -168,6 +208,7 @@ texture_normal = ExtResource("13_510wa")
 texture_focused = ExtResource("10_u0gkk")
 
 [node name="HighScoreText" type="TextureRect" parent="GameOverMenu"]
+use_parent_material = true
 layout_mode = 0
 offset_left = 893.0
 offset_top = 287.0
@@ -177,6 +218,7 @@ texture = ExtResource("20_dyulu")
 expand_mode = 1
 
 [node name="HighScore" type="RichTextLabel" parent="GameOverMenu/HighScoreText"]
+use_parent_material = true
 layout_mode = 0
 offset_top = 34.0
 offset_right = 202.0
@@ -195,5 +237,6 @@ text = "[center]1234[/center]"
 [connection signal="timeout" from="AsteroidSpawnCooldown" to="." method="_on_asteroid_spawn_cooldown_timeout"]
 [connection signal="pressed" from="PauseMenu/Continue" to="PauseMenu" method="_on_continue_pressed"]
 [connection signal="pressed" from="PauseMenu/Quit" to="PauseMenu" method="_on_quit_pressed"]
+[connection signal="value_changed" from="PauseMenu/HueSlider" to="." method="_on_colour_slider_value_changed"]
 [connection signal="pressed" from="GameOverMenu/Restart" to="GameOverMenu" method="_on_restart_pressed"]
 [connection signal="pressed" from="GameOverMenu/Quit" to="GameOverMenu" method="_on_quit_pressed"]

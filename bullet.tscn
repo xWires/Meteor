@@ -7,13 +7,16 @@
 size = Vector2(4, 4)
 
 [node name="Bullet" type="Node2D"]
+use_parent_material = true
 
 [node name="Bullet" type="Area2D" parent="."]
+use_parent_material = true
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_jt72f")
 
 [node name="Sprite2D" type="Sprite2D" parent="Bullet"]
+use_parent_material = true
 scale = Vector2(0.0652174, 0.0652174)
 texture = ExtResource("2_vpytv")
 
