@@ -26,7 +26,7 @@ To change the way the game works, you can use environment variables. Here is a l
 - METEOR_P_MAXSPEED: Used to set the maximum speed of the player, the default is 200
 - METEOR_P_ROTSPEED: Used to set how fast the player rotates, the default is 3
 - METEOR_P_FIRECOOLDOWN: Used to set the cooldown for firing, default is 0.5
-- METEOR_G_FLAGS: A comma separated list of flags to set that change things about the game, the current list of game flags is: nodamage, nometeors, and noscoresave. "nodamage" disables collision between the player and meteors, "nometeors" stops meteors from spawning, and "noscoresave" prevents the game from saving your high score. Make sure you surround the list in quotes.
+- METEOR_G_FLAGS: A comma separated list of flags to set that change things about the game, the current list of game flags is: nodamage, nometeors, and noscoresave. "nodamage" disables collision between the player and meteors, "nometeors" stops meteors from spawning, "noscoresave" prevents the game from saving your high score, and "wrapbullets" makes bullets wrap around the screen like the player does. Make sure you surround the list in quotes.
 
 To use these on Windows, right click in the folder Meteor is in, and click "Open in Terminal". The following example shows what to type to change the firing cooldown, but you can change it to something else if you would like:
 ```powershell
