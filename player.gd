@@ -27,7 +27,7 @@ func fireWeapon():
 			$Weapon/ShootSoundEffect.play()
 		var b = Bullet.instantiate()
 		owner.add_child(b)
-		b.transform = $Weapon.global_transform
+		b.get_child(0).transform = $Weapon.global_transform
 		$WeaponCooldown.start()
 		canFire = false
 
