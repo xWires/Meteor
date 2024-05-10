@@ -16,6 +16,8 @@ var highScore
 @export var pRotSpeed = 3
 @export var pFireCooldown = 0.5
 
+var gFlags:Array
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	screen_size = get_viewport_rect().size
@@ -40,6 +42,9 @@ func _ready():
 	#if OS.get_environment("METEOR_P_FIRECOOLDOWN") != null:
 		pFireCooldown = OS.get_environment("METEOR_P_FIRECOOLDOWN").to_float()
 		print("Player fire cooldown: " + str(pFireCooldown))
+	if OS.get_environment("METEOR_G_FLAGS") != null and OS.get_environment("METEOR_G_FLAGS") != "":
+		gFlags = OS.get_environment("METEOR_G_FLAGS").replace(" ", "").split(",")
+		print("Game Flags: " + str(gFlags))
 		
 	if config.get_value("options", "volume") != null:
 		$PauseMenu/VolumeSlider.value = config.get_value("options", "volume")
@@ -54,7 +59,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if shouldSpawn and spawnAllowed:
+	if shouldSpawn and spawnAllowed and !flagExists("nometeors"):
 		spawnAsteroid(1)
 		$AsteroidSpawnCooldown.start()
 		shouldSpawn = false
@@ -89,7 +94,7 @@ func setVolumeOption(volume:float):
 	config.set_value("options", "volume", volume)
 
 func saveHighScore(score):
-	if config.get_value("scores", "high_score", 0) < score:
+	if !flagExists("nosavescore") and config.get_value("scores", "high_score", 0) < score:
 		config.set_value("scores", "high_score", score)
 
 func _notification(what):
@@ -98,6 +103,7 @@ func _notification(what):
 		get_tree().quit()
 
 func onExit():
+	saveHighScore($UserInterface/ScoreLabel.score)
 	setVolumeOption($PauseMenu/VolumeSlider.value)
 	setHueOption($PauseMenu/HueSlider.value)
 	saveConfig()
@@ -111,3 +117,9 @@ func _on_colour_slider_value_changed(value):
 
 func setHueOption(hue:float):
 	config.set_value("options", "hue", hue)
+
+func flagExists(flag:String):
+	if gFlags != null:
+		return gFlags.has(flag)
+	else:
+		return false

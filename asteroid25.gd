@@ -6,9 +6,11 @@ var screen_size
 var randomX
 var randomY
 var spawnLocation:Vector2
+var gFlagNoDamage
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	gFlagNoDamage = get_node("/root/Game").flagExists("nodamage")
 	screen_size = get_parent().get_parent().get_viewport_rect().size
 	random.randomize()
 	randomX = randf_range(-1, 1)
@@ -31,14 +33,15 @@ func _physics_process(delta):
 
 @warning_ignore("unused_parameter")
 func _on_body_entered(body):
-	var score = get_node("../../UserInterface/ScoreLabel")
-	get_node("../..").gameInProgress = false
-	get_node("../..").spawnAllowed = false
-	get_node("../../Player").queue_free.call_deferred()
-	get_node("../../GameOverMenu").show()
-	get_node("../../GameOverMenu/Restart").grab_focus()
-	get_node("../..").saveHighScore(score.score)
-	get_node("../../GameOverMenu/HighScoreText/HighScore").text = "[center]" + str(get_node("../..").getHighScore()) + "[/center]" 
+	if !gFlagNoDamage:
+		var score = get_node("../../UserInterface/ScoreLabel")
+		get_node("../..").gameInProgress = false
+		get_node("../..").spawnAllowed = false
+		get_node("../../Player").queue_free.call_deferred()
+		get_node("../../GameOverMenu").show()
+		get_node("../../GameOverMenu/Restart").grab_focus()
+		get_node("../..").saveHighScore(score.score)
+		get_node("../../GameOverMenu/HighScoreText/HighScore").text = "[center]" + str(get_node("../..").getHighScore()) + "[/center]" 
 
 func _on_area_entered(area):
 	var score = get_node("../../UserInterface/ScoreLabel")
