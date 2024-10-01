@@ -51,6 +51,12 @@ func _ready():
 	if config.get_value("options", "hue") != null:
 		$PauseMenu/HueSlider.value = config.get_value("options", "hue")
 
+	print("Running on " + OS.get_name())
+
+	if OS.get_name() == "Web":
+		$PauseMenu/Quit.hide()
+		$GameOverMenu/Quit.hide()
+
 	$Player.acceleration = pAccel
 	$Player.deceleration = pDecel
 	$Player.maximumSpeed = pMaxSpeed
