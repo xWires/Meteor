@@ -35,6 +35,13 @@ material = SubResource("ShaderMaterial_ucia6")
 script = ExtResource("1_4r76q")
 Asteroid = ExtResource("2_6rq1t")
 
+[node name="Background" type="ColorRect" parent="."]
+z_index = -10
+offset_right = 1152.0
+offset_bottom = 648.0
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
 [node name="Player" type="CharacterBody2D" parent="."]
 use_parent_material = true
 position = Vector2(256, 112)
@@ -91,6 +98,7 @@ script = ExtResource("7_db4os")
 [node name="PauseMenu" type="Control" parent="."]
 process_mode = 2
 visible = false
+z_index = 10
 use_parent_material = true
 layout_mode = 3
 anchors_preset = 0
@@ -171,6 +179,7 @@ expand_mode = 1
 [node name="GameOverMenu" type="Control" parent="."]
 process_mode = 3
 visible = false
+z_index = 10
 use_parent_material = true
 layout_mode = 3
 anchors_preset = 0
