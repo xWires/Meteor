@@ -14,9 +14,9 @@ func _process(delta):
 			_on_quit_pressed()
 
 func _on_continue_pressed():
-	hide()
+	get_parent().hide()
 	get_tree().paused = false
 
 func _on_quit_pressed():
-	get_node("..").onExit()
+	$"/root/Game".onExit()
 	get_tree().quit()

@@ -22,11 +22,11 @@ func _process(delta):
 
 func fireWeapon():
 	if canFire:
-		if get_node("../PauseMenu/VolumeSlider").value != 0:
-			$Weapon/ShootSoundEffect.volume_db = get_node("../PauseMenu/VolumeSlider").value
+		if get_node("../PauseMenuContainer/PauseMenu/VolumeSlider").value != 0:
+			$Weapon/ShootSoundEffect.volume_db = get_node("../PauseMenuContainer/PauseMenu/VolumeSlider").value
 			$Weapon/ShootSoundEffect.play()
 		var b = Bullet.instantiate()
-		owner.add_child(b)
+		$"/root/Game/BulletContainer".add_child(b)
 		b.get_child(0).transform = $Weapon.global_transform
 		$WeaponCooldown.start()
 		canFire = false
@@ -65,3 +65,6 @@ func _physics_process(delta):
 
 func _on_timer_timeout():
 	canFire = true
+
+func updateScreenSize():
+	screen_size = $"/root/Game".get_viewport_rect().size
