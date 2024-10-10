@@ -21,6 +21,9 @@ var gFlags:Array
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	screen_size = get_viewport_rect().size
+	_on_size_changed()
+	
+	get_tree().get_root().size_changed.connect(_on_size_changed)
 	
 	if OS.get_environment("METEOR_P_ACCELERATION") != null and OS.get_environment("METEOR_P_ACCELERATION").to_float() != 0:
 	#if OS.get_environment("METEOR_P_ACCELERATION") != null:
@@ -47,15 +50,15 @@ func _ready():
 		print("Game Flags: " + str(gFlags))
 		
 	if config.get_value("options", "volume") != null:
-		$PauseMenu/VolumeSlider.value = config.get_value("options", "volume")
+		$PauseMenuContainer/PauseMenu/VolumeSlider.value = config.get_value("options", "volume")
 	if config.get_value("options", "hue") != null:
-		$PauseMenu/HueSlider.value = config.get_value("options", "hue")
+		$PauseMenuContainer/PauseMenu/HueSlider.value = config.get_value("options", "hue")
 
 	print("Running on " + OS.get_name())
 
 	if OS.get_name() == "Web":
-		$PauseMenu/Quit.hide()
-		$GameOverMenu/Quit.hide()
+		$PauseMenuContainer/PauseMenu/Quit.hide()
+		$GameOverMenuContainer/GameOverMenu/Quit.hide()
 
 	$Player.acceleration = pAccel
 	$Player.deceleration = pDecel
@@ -69,12 +72,12 @@ func _process(delta):
 		spawnAsteroid(1)
 		$AsteroidSpawnCooldown.start()
 		shouldSpawn = false
-	setVolumeOption($PauseMenu/VolumeSlider.value)
+	setVolumeOption($PauseMenuContainer/PauseMenu/VolumeSlider.value)
 	saveConfig()
 
 func spawnAsteroid(size, location=null):
 	var a = Asteroid.instantiate()
-	add_child.call_deferred(a)
+	$AsteroidContainer.add_child.call_deferred(a)
 	#print_debug(size)
 	if size is Vector2:
 		a.scale = size
@@ -90,8 +93,8 @@ func _on_asteroid_spawn_cooldown_timeout():
 func _input(event):
 	if Input.is_action_just_pressed("pause") and gameInProgress:
 		get_tree().paused = true
-		$PauseMenu.show()
-		$PauseMenu/Continue.grab_focus()
+		$PauseMenuContainer.show()
+		$PauseMenuContainer/PauseMenu/Continue.grab_focus()
 
 func saveConfig():
 	config.save("user://options.cfg")
@@ -110,8 +113,8 @@ func _notification(what):
 
 func onExit():
 	saveHighScore($UserInterface/ScoreLabel.score)
-	setVolumeOption($PauseMenu/VolumeSlider.value)
-	setHueOption($PauseMenu/HueSlider.value)
+	setVolumeOption($PauseMenuContainer/PauseMenu/VolumeSlider.value)
+	setHueOption($PauseMenuContainer/PauseMenu/HueSlider.value)
 	saveConfig()
 
 func getHighScore():
@@ -129,3 +132,16 @@ func flagExists(flag:String):
 		return gFlags.has(flag)
 	else:
 		return false
+
+func _on_size_changed():
+	var newSize = get_viewport_rect().size
+	$PauseMenuContainer.size = newSize
+	$GameOverMenuContainer.size = newSize
+	if gameInProgress:
+		$Player.updateScreenSize()
+	for node in $BulletContainer.get_children():
+		if !node.is_queued_for_deletion():
+			node.get_node("Bullet").updateScreenSize()
+	for node in $AsteroidContainer.get_children():
+		if !node.is_queued_for_deletion():
+			node.get_node("Asteroid").updateScreenSize()

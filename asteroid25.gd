@@ -34,20 +34,23 @@ func _physics_process(delta):
 @warning_ignore("unused_parameter")
 func _on_body_entered(body):
 	if !gFlagNoDamage:
-		var score = get_node("../../UserInterface/ScoreLabel")
-		get_node("../..").gameInProgress = false
-		get_node("../..").spawnAllowed = false
-		get_node("../../Player").queue_free.call_deferred()
-		get_node("../../GameOverMenu").show()
-		get_node("../../GameOverMenu/Restart").grab_focus()
-		get_node("../..").saveHighScore(score.score)
-		get_node("../../GameOverMenu/HighScoreText/HighScore").text = "[center]" + str(get_node("../..").getHighScore()) + "[/center]" 
+		var score = get_node("/root/Game/UserInterface/ScoreLabel")
+		get_node("/root/Game").gameInProgress = false
+		get_node("/root/Game").spawnAllowed = false
+		get_node("/root/Game/Player").queue_free.call_deferred()
+		get_node("/root/Game/GameOverMenuContainer").show()
+		get_node("/root/Game/GameOverMenuContainer/GameOverMenu/Restart").grab_focus()
+		get_node("/root/Game").saveHighScore(score.score)
+		get_node("/root/Game/GameOverMenuContainer/GameOverMenu/HighScoreText/HighScore").text = "[center]" + str(get_node("/root/Game").getHighScore()) + "[/center]" 
 
 func _on_area_entered(area):
-	var score = get_node("../../UserInterface/ScoreLabel")
+	var score = get_node("/root/Game/UserInterface/ScoreLabel")
 	score.score += 1
-	queue_free()
-	area.queue_free()
+	area.get_parent().queue_free()
+	get_parent().queue_free()
 
 func setSpawnLocation(location):
 	spawnLocation = location
+
+func updateScreenSize():
+	screen_size = $"/root/Game".get_viewport_rect().size

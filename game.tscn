@@ -35,12 +35,9 @@ material = SubResource("ShaderMaterial_ucia6")
 script = ExtResource("1_4r76q")
 Asteroid = ExtResource("2_6rq1t")
 
-[node name="Background" type="ColorRect" parent="."]
-z_index = -10
-offset_right = 1152.0
-offset_bottom = 648.0
-mouse_filter = 2
-color = Color(0, 0, 0, 1)
+[node name="BulletContainer" type="Node2D" parent="."]
+
+[node name="AsteroidContainer" type="Node2D" parent="."]
 
 [node name="Player" type="CharacterBody2D" parent="."]
 use_parent_material = true
@@ -95,139 +92,141 @@ theme_override_font_sizes/font_size = 50
 text = "0"
 script = ExtResource("7_db4os")
 
-[node name="PauseMenu" type="Control" parent="."]
-process_mode = 2
+[node name="PauseMenuContainer" type="CenterContainer" parent="."]
 visible = false
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="PauseMenu" type="Control" parent="PauseMenuContainer"]
+process_mode = 2
 z_index = 10
 use_parent_material = true
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 2
 script = ExtResource("8_uxe00")
 
-[node name="Continue" type="TextureButton" parent="PauseMenu"]
+[node name="Continue" type="TextureButton" parent="PauseMenuContainer/PauseMenu"]
 use_parent_material = true
 layout_mode = 0
-offset_left = 350.0
-offset_top = 192.0
-offset_right = 802.0
-offset_bottom = 253.0
+offset_left = -226.0
+offset_top = -73.0
+offset_right = 226.0
+offset_bottom = -12.0
 texture_normal = ExtResource("10_mw0v3")
 texture_focused = ExtResource("8_0vq87")
 
-[node name="Paused" type="TextureRect" parent="PauseMenu"]
+[node name="Paused" type="TextureRect" parent="PauseMenuContainer/PauseMenu"]
 use_parent_material = true
 layout_mode = 0
-offset_left = 314.0
-offset_top = 61.0
-offset_right = 838.0
-offset_bottom = 165.0
+offset_left = -262.0
+offset_top = -204.0
+offset_right = 262.0
+offset_bottom = -100.0
 texture = ExtResource("9_1laju")
 expand_mode = 1
 
-[node name="Quit" type="TextureButton" parent="PauseMenu"]
+[node name="Quit" type="TextureButton" parent="PauseMenuContainer/PauseMenu"]
 use_parent_material = true
 layout_mode = 0
-offset_left = 466.0
-offset_top = 400.0
-offset_right = 686.0
-offset_bottom = 461.0
+offset_left = -110.0
+offset_top = 135.0
+offset_right = 110.0
+offset_bottom = 196.0
 texture_normal = ExtResource("13_510wa")
 texture_focused = ExtResource("10_u0gkk")
 
-[node name="VolumeSlider" type="VSlider" parent="PauseMenu"]
+[node name="VolumeSlider" type="VSlider" parent="PauseMenuContainer/PauseMenu"]
 layout_mode = 0
-offset_left = 952.0
-offset_top = 288.0
-offset_right = 968.0
-offset_bottom = 456.0
+offset_left = 376.0
+offset_top = 23.0
+offset_right = 392.0
+offset_bottom = 191.0
 max_value = 16.0
 value = 16.0
 
-[node name="HueSlider" type="VSlider" parent="PauseMenu"]
+[node name="HueSlider" type="VSlider" parent="PauseMenuContainer/PauseMenu"]
 layout_mode = 0
-offset_left = 184.0
-offset_top = 288.0
-offset_right = 200.0
-offset_bottom = 456.0
+offset_left = -392.0
+offset_top = 23.0
+offset_right = -376.0
+offset_bottom = 191.0
 min_value = -1.0
 max_value = 1.0
 step = 0.1
 value = 1.0
 
-[node name="VolumeSliderLabel" type="TextureRect" parent="PauseMenu"]
+[node name="VolumeSliderLabel" type="TextureRect" parent="PauseMenuContainer/PauseMenu"]
 use_parent_material = true
 layout_mode = 0
-offset_left = 880.0
-offset_top = 248.0
-offset_right = 1040.0
-offset_bottom = 277.0
+offset_left = 304.0
+offset_top = -17.0
+offset_right = 464.0
+offset_bottom = 12.0
 texture = ExtResource("14_vnlqt")
 expand_mode = 1
 
-[node name="HueSliderLabel" type="TextureRect" parent="PauseMenu"]
+[node name="HueSliderLabel" type="TextureRect" parent="PauseMenuContainer/PauseMenu"]
 use_parent_material = true
 layout_mode = 0
-offset_left = 112.0
-offset_top = 248.0
-offset_right = 272.0
-offset_bottom = 277.0
+offset_left = -464.0
+offset_top = -17.0
+offset_right = -304.0
+offset_bottom = 12.0
 texture = ExtResource("17_nw0qd")
 expand_mode = 1
 
-[node name="GameOverMenu" type="Control" parent="."]
-process_mode = 3
+[node name="GameOverMenuContainer" type="CenterContainer" parent="."]
 visible = false
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="GameOverMenu" type="Control" parent="GameOverMenuContainer"]
+process_mode = 3
 z_index = 10
 use_parent_material = true
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 2
 script = ExtResource("16_sm7up")
 
-[node name="GameOver" type="TextureRect" parent="GameOverMenu"]
+[node name="GameOver" type="TextureRect" parent="GameOverMenuContainer/GameOverMenu"]
 use_parent_material = true
 layout_mode = 0
-offset_left = 187.0
-offset_top = 128.0
-offset_right = 965.0
-offset_bottom = 231.0
+offset_left = -389.0
+offset_top = -228.0
+offset_right = 389.0
+offset_bottom = -125.0
 texture = ExtResource("16_tpded")
 expand_mode = 1
 
-[node name="Restart" type="TextureButton" parent="GameOverMenu"]
+[node name="Restart" type="TextureButton" parent="GameOverMenuContainer/GameOverMenu"]
 use_parent_material = true
 layout_mode = 0
-offset_left = 379.0
-offset_top = 362.0
-offset_right = 773.0
-offset_bottom = 424.0
+offset_left = -197.0
+offset_top = 6.0
+offset_right = 197.0
+offset_bottom = 68.0
 texture_normal = ExtResource("18_bdrod")
 texture_focused = ExtResource("19_13d1b")
 
-[node name="Quit" type="TextureButton" parent="GameOverMenu"]
+[node name="Quit" type="TextureButton" parent="GameOverMenuContainer/GameOverMenu"]
 use_parent_material = true
 layout_mode = 0
-offset_left = 466.0
-offset_top = 515.0
-offset_right = 686.0
-offset_bottom = 576.0
+offset_left = -110.0
+offset_top = 159.0
+offset_right = 110.0
+offset_bottom = 220.0
 texture_normal = ExtResource("13_510wa")
 texture_focused = ExtResource("10_u0gkk")
 
-[node name="HighScoreText" type="TextureRect" parent="GameOverMenu"]
+[node name="HighScoreText" type="TextureRect" parent="GameOverMenuContainer/GameOverMenu"]
 use_parent_material = true
 layout_mode = 0
-offset_left = 893.0
-offset_top = 287.0
-offset_right = 1123.0
-offset_bottom = 312.0
+offset_left = 317.0
+offset_top = -69.0
+offset_right = 547.0
+offset_bottom = -44.0
 texture = ExtResource("20_dyulu")
 expand_mode = 1
 
-[node name="HighScore" type="RichTextLabel" parent="GameOverMenu/HighScoreText"]
+[node name="HighScore" type="RichTextLabel" parent="GameOverMenuContainer/GameOverMenu/HighScoreText"]
 use_parent_material = true
 layout_mode = 0
 offset_top = 34.0
@@ -245,8 +244,8 @@ text = "[center]1234[/center]"
 [connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]
 [connection signal="timeout" from="Player/WeaponCooldown" to="Player" method="_on_timer_timeout"]
 [connection signal="timeout" from="AsteroidSpawnCooldown" to="." method="_on_asteroid_spawn_cooldown_timeout"]
-[connection signal="pressed" from="PauseMenu/Continue" to="PauseMenu" method="_on_continue_pressed"]
-[connection signal="pressed" from="PauseMenu/Quit" to="PauseMenu" method="_on_quit_pressed"]
-[connection signal="value_changed" from="PauseMenu/HueSlider" to="." method="_on_colour_slider_value_changed"]
-[connection signal="pressed" from="GameOverMenu/Restart" to="GameOverMenu" method="_on_restart_pressed"]
-[connection signal="pressed" from="GameOverMenu/Quit" to="GameOverMenu" method="_on_quit_pressed"]
+[connection signal="pressed" from="PauseMenuContainer/PauseMenu/Continue" to="PauseMenuContainer/PauseMenu" method="_on_continue_pressed"]
+[connection signal="pressed" from="PauseMenuContainer/PauseMenu/Quit" to="PauseMenuContainer/PauseMenu" method="_on_quit_pressed"]
+[connection signal="value_changed" from="PauseMenuContainer/PauseMenu/HueSlider" to="." method="_on_colour_slider_value_changed"]
+[connection signal="pressed" from="GameOverMenuContainer/GameOverMenu/Restart" to="GameOverMenuContainer/GameOverMenu" method="_on_restart_pressed"]
+[connection signal="pressed" from="GameOverMenuContainer/GameOverMenu/Quit" to="GameOverMenuContainer/GameOverMenu" method="_on_quit_pressed"]
