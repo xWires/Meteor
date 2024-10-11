@@ -57,14 +57,21 @@ func _ready():
 	print("Running on " + OS.get_name())
 
 	if OS.get_name() == "Web":
-		$PauseMenuContainer/PauseMenu/Quit.hide()
-		$GameOverMenuContainer/GameOverMenu/Quit.hide()
+		if Globals.onMobile:
+			$TouchPauseMenuContainer/PauseMenu/Quit.hide()
+			$TouchGameOverMenuContainer/GameOverMenu/Quit.hide()
+		else:
+			$PauseMenuContainer/PauseMenu/Quit.hide()
+			$GameOverMenuContainer/GameOverMenu/Quit.hide()
 
 	$Player.acceleration = pAccel
 	$Player.deceleration = pDecel
 	$Player.maximumSpeed = pMaxSpeed
 	$Player.rotationSpeed = pRotSpeed
 	$Player/WeaponCooldown.wait_time = pFireCooldown
+	
+	Globals.pauseMenu = $TouchPauseMenuContainer/PauseMenu if Globals.onMobile else $PauseMenuContainer/PauseMenu
+	Globals.gameOverMenu = $TouchGameOverMenuContainer/GameOverMenu if Globals.onMobile else $GameOverMenuContainer/GameOverMenu
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -93,8 +100,12 @@ func _on_asteroid_spawn_cooldown_timeout():
 func _input(event):
 	if Input.is_action_just_pressed("pause") and gameInProgress:
 		get_tree().paused = true
-		$PauseMenuContainer.show()
-		$PauseMenuContainer/PauseMenu/Continue.grab_focus()
+		if Globals.onMobile:
+			$TouchPauseMenuContainer.show()
+			$TouchPauseMenuContainer/PauseMenu/Continue.grab_focus()
+		else:
+			$PauseMenuContainer.show()
+			$PauseMenuContainer/PauseMenu/Continue.grab_focus()
 
 func saveConfig():
 	config.save("user://options.cfg")
@@ -113,8 +124,12 @@ func _notification(what):
 
 func onExit():
 	saveHighScore($UserInterface/ScoreLabel.score)
-	setVolumeOption($PauseMenuContainer/PauseMenu/VolumeSlider.value)
-	setHueOption($PauseMenuContainer/PauseMenu/HueSlider.value)
+	if Globals.onMobile:
+		setVolumeOption($TouchPauseMenuContainer/PauseMenu/VolumeSlider.value)
+		setHueOption($TouchPauseMenuContainer/PauseMenu/HueSlider.value)
+	else:
+		setVolumeOption($PauseMenuContainer/PauseMenu/VolumeSlider.value)
+		setHueOption($PauseMenuContainer/PauseMenu/HueSlider.value)
 	saveConfig()
 
 func getHighScore():
@@ -135,8 +150,13 @@ func flagExists(flag:String):
 
 func _on_size_changed():
 	var newSize = get_viewport_rect().size
-	$PauseMenuContainer.size = newSize
-	$GameOverMenuContainer.size = newSize
+	if Globals.onMobile:
+		$TouchPauseMenuContainer.size = newSize
+		$TouchGameOverMenuContainer.size = newSize
+		$TouchControls.size = newSize
+	else:
+		$PauseMenuContainer.size = newSize
+		$GameOverMenuContainer.size = newSize
 	if gameInProgress:
 		$Player.updateScreenSize()
 	for node in $BulletContainer.get_children():
@@ -145,4 +165,3 @@ func _on_size_changed():
 	for node in $AsteroidContainer.get_children():
 		if !node.is_queued_for_deletion():
 			node.get_node("Asteroid").updateScreenSize()
-	$TouchControls.size = newSize

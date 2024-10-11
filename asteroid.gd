@@ -36,10 +36,15 @@ func _on_body_entered(body):
 		get_node("/root/Game").gameInProgress = false
 		get_node("/root/Game").spawnAllowed = false
 		get_node("/root/Game/Player").queue_free.call_deferred()
-		get_node("/root/Game/GameOverMenuContainer").show()
-		get_node("/root/Game/GameOverMenuContainer/GameOverMenu/Restart").grab_focus()
 		get_node("/root/Game").saveHighScore(score.score)
-		get_node("/root/Game/GameOverMenuContainer/GameOverMenu/HighScoreText/HighScore").text = "[center]" + str(get_node("/root/Game").getHighScore()) + "[/center]" 
+		if Globals.onMobile:
+			get_node("/root/Game/TouchGameOverMenuContainer").show()
+			get_node("/root/Game/TouchGameOverMenuContainer/GameOverMenu/Restart").grab_focus()
+			get_node("/root/Game/TouchGameOverMenuContainer/GameOverMenu/HighScoreText/HighScore").text = "[center]" + str(get_node("/root/Game").getHighScore()) + "[/center]" 
+		else:
+			get_node("/root/Game/GameOverMenuContainer").show()
+			get_node("/root/Game/GameOverMenuContainer/GameOverMenu/Restart").grab_focus()
+			get_node("/root/Game/GameOverMenuContainer/GameOverMenu/HighScoreText/HighScore").text = "[center]" + str(get_node("/root/Game").getHighScore()) + "[/center]" 
 
 func _on_area_entered(area):
 	var score = get_node("/root/Game/UserInterface/ScoreLabel")
