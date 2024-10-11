@@ -145,3 +145,4 @@ func _on_size_changed():
 	for node in $AsteroidContainer.get_children():
 		if !node.is_queued_for_deletion():
 			node.get_node("Asteroid").updateScreenSize()
+	$TouchControls.size = newSize
