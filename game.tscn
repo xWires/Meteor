@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://w3xuox2ftlwx"]
+[gd_scene load_steps=29 format=3 uid="uid://w3xuox2ftlwx"]
 
 [ext_resource type="Script" path="res://game.gd" id="1_4r76q"]
 [ext_resource type="Script" path="res://player.gd" id="1_ba3e2"]
@@ -22,6 +22,10 @@
 [ext_resource type="Texture2D" uid="uid://bpxqobmqtroqr" path="res://restart.png" id="18_bdrod"]
 [ext_resource type="Texture2D" uid="uid://j0u7kuwv5rsg" path="res://restart_focused.png" id="19_13d1b"]
 [ext_resource type="Texture2D" uid="uid://bplnb4ynyulsn" path="res://high_score.png" id="20_dyulu"]
+[ext_resource type="Texture2D" uid="uid://k5nxovchh6ka" path="res://rotate_left.png" id="23_yswc7"]
+[ext_resource type="Texture2D" uid="uid://bpc1nxvfee244" path="res://rotate_right.png" id="24_qhuac"]
+[ext_resource type="Texture2D" uid="uid://du8vlufnpfyij" path="res://thrust.png" id="25_pn76n"]
+[ext_resource type="Texture2D" uid="uid://c60nc7tx5ogmn" path="res://fire.png" id="26_gy513"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ucia6"]
 shader = ExtResource("1_sykpf")
@@ -96,6 +100,7 @@ script = ExtResource("7_db4os")
 visible = false
 offset_right = 1152.0
 offset_bottom = 648.0
+metadata/_edit_lock_ = true
 
 [node name="PauseMenu" type="Control" parent="PauseMenuContainer"]
 process_mode = 2
@@ -174,10 +179,84 @@ offset_bottom = 12.0
 texture = ExtResource("17_nw0qd")
 expand_mode = 1
 
+[node name="TouchPauseMenuContainer" type="CenterContainer" parent="."]
+visible = false
+offset_right = 1152.0
+offset_bottom = 648.0
+metadata/_edit_lock_ = true
+
+[node name="PauseMenu" type="Control" parent="TouchPauseMenuContainer"]
+process_mode = 2
+z_index = 10
+use_parent_material = true
+layout_mode = 2
+script = ExtResource("8_uxe00")
+
+[node name="Continue" type="TouchScreenButton" parent="TouchPauseMenuContainer/PauseMenu"]
+position = Vector2(-226, -73)
+texture_normal = ExtResource("10_mw0v3")
+texture_pressed = ExtResource("8_0vq87")
+
+[node name="Quit" type="TouchScreenButton" parent="TouchPauseMenuContainer/PauseMenu"]
+position = Vector2(-110, 135)
+texture_normal = ExtResource("13_510wa")
+texture_pressed = ExtResource("10_u0gkk")
+
+[node name="Paused" type="TextureRect" parent="TouchPauseMenuContainer/PauseMenu"]
+use_parent_material = true
+layout_mode = 0
+offset_left = -262.0
+offset_top = -204.0
+offset_right = 262.0
+offset_bottom = -100.0
+texture = ExtResource("9_1laju")
+expand_mode = 1
+
+[node name="VolumeSlider" type="VSlider" parent="TouchPauseMenuContainer/PauseMenu"]
+layout_mode = 0
+offset_left = 376.0
+offset_top = 23.0
+offset_right = 392.0
+offset_bottom = 191.0
+max_value = 16.0
+value = 16.0
+
+[node name="HueSlider" type="VSlider" parent="TouchPauseMenuContainer/PauseMenu"]
+layout_mode = 0
+offset_left = -392.0
+offset_top = 23.0
+offset_right = -376.0
+offset_bottom = 191.0
+min_value = -1.0
+max_value = 1.0
+step = 0.1
+value = 1.0
+
+[node name="VolumeSliderLabel" type="TextureRect" parent="TouchPauseMenuContainer/PauseMenu"]
+use_parent_material = true
+layout_mode = 0
+offset_left = 304.0
+offset_top = -17.0
+offset_right = 464.0
+offset_bottom = 12.0
+texture = ExtResource("14_vnlqt")
+expand_mode = 1
+
+[node name="HueSliderLabel" type="TextureRect" parent="TouchPauseMenuContainer/PauseMenu"]
+use_parent_material = true
+layout_mode = 0
+offset_left = -464.0
+offset_top = -17.0
+offset_right = -304.0
+offset_bottom = 12.0
+texture = ExtResource("17_nw0qd")
+expand_mode = 1
+
 [node name="GameOverMenuContainer" type="CenterContainer" parent="."]
 visible = false
 offset_right = 1152.0
 offset_bottom = 648.0
+metadata/_edit_lock_ = true
 
 [node name="GameOverMenu" type="Control" parent="GameOverMenuContainer"]
 process_mode = 3
@@ -240,6 +319,127 @@ theme_override_font_sizes/normal_font_size = 31
 bbcode_enabled = true
 text = "[center]1234[/center]"
 
+[node name="TouchGameOverMenuContainer" type="CenterContainer" parent="."]
+visible = false
+offset_right = 1152.0
+offset_bottom = 648.0
+metadata/_edit_lock_ = true
+
+[node name="GameOverMenu" type="Control" parent="TouchGameOverMenuContainer"]
+process_mode = 3
+z_index = 10
+use_parent_material = true
+layout_mode = 2
+script = ExtResource("16_sm7up")
+
+[node name="GameOver" type="TextureRect" parent="TouchGameOverMenuContainer/GameOverMenu"]
+use_parent_material = true
+layout_mode = 0
+offset_left = -389.0
+offset_top = -228.0
+offset_right = 389.0
+offset_bottom = -125.0
+texture = ExtResource("16_tpded")
+expand_mode = 1
+
+[node name="Restart" type="TouchScreenButton" parent="TouchGameOverMenuContainer/GameOverMenu"]
+position = Vector2(-197, 6)
+texture_normal = ExtResource("18_bdrod")
+texture_pressed = ExtResource("19_13d1b")
+
+[node name="Quit" type="TouchScreenButton" parent="TouchGameOverMenuContainer/GameOverMenu"]
+position = Vector2(-110, 159)
+texture_normal = ExtResource("13_510wa")
+texture_pressed = ExtResource("10_u0gkk")
+
+[node name="HighScoreText" type="TextureRect" parent="TouchGameOverMenuContainer/GameOverMenu"]
+use_parent_material = true
+layout_mode = 0
+offset_left = 317.0
+offset_top = -69.0
+offset_right = 547.0
+offset_bottom = -44.0
+texture = ExtResource("20_dyulu")
+expand_mode = 1
+
+[node name="HighScore" type="RichTextLabel" parent="TouchGameOverMenuContainer/GameOverMenu/HighScoreText"]
+use_parent_material = true
+layout_mode = 0
+offset_top = 34.0
+offset_right = 202.0
+offset_bottom = 74.0
+theme_override_colors/default_color = Color(0, 0.909804, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0.909804, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_fonts/normal_font = ExtResource("6_j415o")
+theme_override_font_sizes/normal_font_size = 31
+bbcode_enabled = true
+text = "[center]1234[/center]"
+
+[node name="TouchControls" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+mouse_filter = 2
+metadata/_edit_lock_ = true
+
+[node name="RotateLeft" type="Control" parent="TouchControls"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+grow_vertical = 0
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="TouchControls/RotateLeft"]
+position = Vector2(16, -272)
+texture_normal = ExtResource("23_yswc7")
+visibility_mode = 1
+
+[node name="RotateRight" type="Control" parent="TouchControls"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+grow_vertical = 0
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="TouchControls/RotateRight"]
+position = Vector2(304, -272)
+texture_normal = ExtResource("24_qhuac")
+visibility_mode = 1
+
+[node name="Thrust" type="Control" parent="TouchControls"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="TouchControls/Thrust"]
+position = Vector2(-520, -232)
+texture_normal = ExtResource("25_pn76n")
+visibility_mode = 1
+
+[node name="Fire" type="Control" parent="TouchControls"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="TouchControls/Fire"]
+position = Vector2(-272, -272)
+texture_normal = ExtResource("26_gy513")
+visibility_mode = 1
+
 [connection signal="child_exiting_tree" from="." to="." method="_on_child_exiting_tree"]
 [connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]
 [connection signal="timeout" from="Player/WeaponCooldown" to="Player" method="_on_timer_timeout"]
@@ -247,5 +447,18 @@ text = "[center]1234[/center]"
 [connection signal="pressed" from="PauseMenuContainer/PauseMenu/Continue" to="PauseMenuContainer/PauseMenu" method="_on_continue_pressed"]
 [connection signal="pressed" from="PauseMenuContainer/PauseMenu/Quit" to="PauseMenuContainer/PauseMenu" method="_on_quit_pressed"]
 [connection signal="value_changed" from="PauseMenuContainer/PauseMenu/HueSlider" to="." method="_on_colour_slider_value_changed"]
+[connection signal="pressed" from="TouchPauseMenuContainer/PauseMenu/Continue" to="PauseMenuContainer/PauseMenu" method="_on_continue_pressed"]
+[connection signal="pressed" from="TouchPauseMenuContainer/PauseMenu/Quit" to="PauseMenuContainer/PauseMenu" method="_on_quit_pressed"]
+[connection signal="value_changed" from="TouchPauseMenuContainer/PauseMenu/HueSlider" to="." method="_on_colour_slider_value_changed"]
 [connection signal="pressed" from="GameOverMenuContainer/GameOverMenu/Restart" to="GameOverMenuContainer/GameOverMenu" method="_on_restart_pressed"]
 [connection signal="pressed" from="GameOverMenuContainer/GameOverMenu/Quit" to="GameOverMenuContainer/GameOverMenu" method="_on_quit_pressed"]
+[connection signal="pressed" from="TouchGameOverMenuContainer/GameOverMenu/Restart" to="GameOverMenuContainer/GameOverMenu" method="_on_restart_pressed"]
+[connection signal="pressed" from="TouchGameOverMenuContainer/GameOverMenu/Quit" to="GameOverMenuContainer/GameOverMenu" method="_on_quit_pressed"]
+[connection signal="pressed" from="TouchControls/RotateLeft/TouchScreenButton" to="Player" method="_on_rotate_left_pressed"]
+[connection signal="released" from="TouchControls/RotateLeft/TouchScreenButton" to="Player" method="_on_rotate_left_released"]
+[connection signal="pressed" from="TouchControls/RotateRight/TouchScreenButton" to="Player" method="_on_rotate_right_pressed"]
+[connection signal="released" from="TouchControls/RotateRight/TouchScreenButton" to="Player" method="_on_rotate_right_released"]
+[connection signal="pressed" from="TouchControls/Thrust/TouchScreenButton" to="Player" method="_on_thrust_pressed"]
+[connection signal="released" from="TouchControls/Thrust/TouchScreenButton" to="Player" method="_on_thrust_released"]
+[connection signal="pressed" from="TouchControls/Fire/TouchScreenButton" to="Player" method="_on_fire_pressed"]
+[connection signal="released" from="TouchControls/Fire/TouchScreenButton" to="Player" method="_on_fire_released"]
