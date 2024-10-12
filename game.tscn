@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://w3xuox2ftlwx"]
+[gd_scene load_steps=30 format=3 uid="uid://w3xuox2ftlwx"]
 
 [ext_resource type="Script" path="res://game.gd" id="1_4r76q"]
 [ext_resource type="Script" path="res://player.gd" id="1_ba3e2"]
@@ -26,6 +26,7 @@
 [ext_resource type="Texture2D" uid="uid://bpc1nxvfee244" path="res://rotate_right.png" id="24_qhuac"]
 [ext_resource type="Texture2D" uid="uid://du8vlufnpfyij" path="res://thrust.png" id="25_pn76n"]
 [ext_resource type="Texture2D" uid="uid://c60nc7tx5ogmn" path="res://fire.png" id="26_gy513"]
+[ext_resource type="Texture2D" uid="uid://bd7jt7y3ej0b7" path="res://pause.png" id="27_3tyw8"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ucia6"]
 shader = ExtResource("1_sykpf")
@@ -446,6 +447,19 @@ position = Vector2(-272, -272)
 texture_normal = ExtResource("26_gy513")
 visibility_mode = 1
 
+[node name="Pause" type="Control" parent="TouchControls"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+grow_horizontal = 0
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="TouchControls/Pause"]
+position = Vector2(-88, 32)
+scale = Vector2(0.3, 0.3)
+texture_normal = ExtResource("27_3tyw8")
+visibility_mode = 1
+
 [connection signal="child_exiting_tree" from="." to="." method="_on_child_exiting_tree"]
 [connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]
 [connection signal="timeout" from="Player/WeaponCooldown" to="Player" method="_on_timer_timeout"]
@@ -468,3 +482,4 @@ visibility_mode = 1
 [connection signal="released" from="TouchControls/Thrust/TouchScreenButton" to="Player" method="_on_thrust_released"]
 [connection signal="pressed" from="TouchControls/Fire/TouchScreenButton" to="Player" method="_on_fire_pressed"]
 [connection signal="released" from="TouchControls/Fire/TouchScreenButton" to="Player" method="_on_fire_released"]
+[connection signal="pressed" from="TouchControls/Pause/TouchScreenButton" to="." method="_on_pause_pressed"]

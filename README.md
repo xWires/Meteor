@@ -56,3 +56,4 @@ The latest version of Meteor is available [here](https://github.com/xWires/Meteo
 Meteor is licensed under the GPLv3 license, and the "Vector Battle" font is licensed under a seperate license which can be found in the "vector_battle" folder.
 
 <a href="https://www.flaticon.com/free-icons/fire" title="fire icons">Fire icons created by Ehtisham Abid - Flaticon</a>
+<a href="https://www.flaticon.com/free-icons/pause" title="pause icons">Pause icons created by Kiranshastry - Flaticon</a>

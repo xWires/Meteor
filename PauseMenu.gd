@@ -14,7 +14,11 @@ func _process(delta):
 			_on_quit_pressed()
 
 func _on_continue_pressed():
-	get_parent().hide()
+	if Globals.onMobile:
+		$"/root/Game/TouchControls".show()
+		$"/root/Game/TouchPauseMenuContainer".hide()
+	else:
+		$"/root/Game/PauseMenuContainer".hide()
 	get_tree().paused = false
 
 func _on_quit_pressed():

@@ -65,6 +65,12 @@ func _ready():
 		else:
 			$PauseMenuContainer/PauseMenu/Quit.hide()
 			$GameOverMenuContainer/GameOverMenu/Quit.hide()
+	
+	if Globals.onMobile:
+		$TouchPauseMenuContainer/PauseMenu/HueSlider.hide()
+		$TouchPauseMenuContainer/PauseMenu/HueSliderLabel.hide()
+		$TouchPauseMenuContainer/PauseMenu/VolumeSlider.hide()
+		$TouchPauseMenuContainer/PauseMenu/VolumeSliderLabel.hide()
 
 	$Player.acceleration = pAccel
 	$Player.deceleration = pDecel
@@ -100,14 +106,8 @@ func _on_asteroid_spawn_cooldown_timeout():
 	shouldSpawn = true
 		
 func _input(event):
-	if Input.is_action_just_pressed("pause") and gameInProgress:
-		get_tree().paused = true
-		if Globals.onMobile:
-			$TouchPauseMenuContainer.show()
-			$TouchPauseMenuContainer/PauseMenu/Continue.grab_focus()
-		else:
-			$PauseMenuContainer.show()
-			$PauseMenuContainer/PauseMenu/Continue.grab_focus()
+	if Input.is_action_just_pressed("pause"):
+		pauseGame()
 
 func saveConfig():
 	config.save("user://options.cfg")
@@ -150,6 +150,17 @@ func flagExists(flag:String):
 	else:
 		return false
 
+func pauseGame():
+	if gameInProgress:
+		get_tree().paused = true
+		if Globals.onMobile:
+			$TouchControls.hide()
+			$TouchPauseMenuContainer.show()
+			$TouchPauseMenuContainer/PauseMenu/Continue.grab_focus()
+		else:
+			$PauseMenuContainer.show()
+			$PauseMenuContainer/PauseMenu/Continue.grab_focus()
+
 func _on_size_changed():
 	var newSize = get_viewport_rect().size
 	if Globals.onMobile:
@@ -167,3 +178,6 @@ func _on_size_changed():
 	for node in $AsteroidContainer.get_children():
 		if !node.is_queued_for_deletion():
 			node.get_node("Asteroid").updateScreenSize()
+
+func _on_pause_pressed() -> void:
+	pauseGame()
