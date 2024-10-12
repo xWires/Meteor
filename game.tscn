@@ -40,8 +40,10 @@ script = ExtResource("1_4r76q")
 Asteroid = ExtResource("2_6rq1t")
 
 [node name="BulletContainer" type="Node2D" parent="."]
+use_parent_material = true
 
 [node name="AsteroidContainer" type="Node2D" parent="."]
+use_parent_material = true
 
 [node name="Player" type="CharacterBody2D" parent="."]
 use_parent_material = true
@@ -98,6 +100,7 @@ script = ExtResource("7_db4os")
 
 [node name="PauseMenuContainer" type="CenterContainer" parent="."]
 visible = false
+use_parent_material = true
 offset_right = 1152.0
 offset_bottom = 648.0
 metadata/_edit_lock_ = true
@@ -181,6 +184,7 @@ expand_mode = 1
 
 [node name="TouchPauseMenuContainer" type="CenterContainer" parent="."]
 visible = false
+use_parent_material = true
 offset_right = 1152.0
 offset_bottom = 648.0
 metadata/_edit_lock_ = true
@@ -254,6 +258,7 @@ expand_mode = 1
 
 [node name="GameOverMenuContainer" type="CenterContainer" parent="."]
 visible = false
+use_parent_material = true
 offset_right = 1152.0
 offset_bottom = 648.0
 metadata/_edit_lock_ = true
@@ -321,6 +326,7 @@ text = "[center]1234[/center]"
 
 [node name="TouchGameOverMenuContainer" type="CenterContainer" parent="."]
 visible = false
+use_parent_material = true
 offset_right = 1152.0
 offset_bottom = 648.0
 metadata/_edit_lock_ = true
