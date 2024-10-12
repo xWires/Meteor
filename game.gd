@@ -20,6 +20,8 @@ var gFlags:Array
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	Globals.onMobile = OS.has_feature("web_android") or OS.has_feature("web_ios") or OS.has_feature("android") or OS.has_feature("ios")
+	
 	screen_size = get_viewport_rect().size
 	_on_size_changed()
 	
